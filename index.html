@@ -1,0 +1,488 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"></head><body><title>Firefly Outreach</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+:root{--ground:#F3F5F2;--surface:#FFFFFF;--ink:#152019;--muted:#5B6A61;--faint:#8A978F;--line:#DDE3DE;--grid:#E9EDEA;
+--accent:#1F7A4D;--bar:#2E8B57;--good:#1F7A4D;--warn:#9A5B00;--bad:#B3261E;--chip:#EEF2EF;
+--sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;--mono:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--ground:#0F1512;--surface:#172019;--ink:#E3ECE6;--muted:#93A399;--faint:#6E7D74;--line:#26322B;--grid:#202A24;
+--accent:#4CC38A;--bar:#38A874;--good:#4CC38A;--warn:#E0B354;--bad:#F2877E;--chip:#1D2822}}
+:root[data-theme="dark"]{--ground:#0F1512;--surface:#172019;--ink:#E3ECE6;--muted:#93A399;--faint:#6E7D74;--line:#26322B;--grid:#202A24;
+--accent:#4CC38A;--bar:#38A874;--good:#4CC38A;--warn:#E0B354;--bad:#F2877E;--chip:#1D2822}
+body{background:var(--ground);color:var(--ink);font:15px/1.45 var(--sans);padding-inline:16px}
+.mono,.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.wrap{max-width:1040px;margin-inline:auto;padding-block:20px 56px;display:flex;flex-direction:column;gap:22px}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--ground);padding-block:12px;border-bottom:1px solid var(--line);display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center}
+h1{font-size:20px;font-weight:600;margin:0;letter-spacing:-.01em}
+.pill{display:inline-flex;gap:6px;align-items:center;font-size:12.5px;font-weight:600;border-radius:999px;padding:2px 10px;border:1px solid currentColor}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.pill.good{color:var(--good)}.pill.warn{color:var(--warn)}.pill.bad{color:var(--bad)}.pill.off{color:var(--faint)}
+.src{margin-left:auto;font-size:12.5px;color:var(--muted)}
+h2{font-size:13px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+.attn{display:flex;flex-direction:column;gap:8px;margin:0;padding:0;list-style:none}
+.attn li{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:baseline}
+.sev{font-size:11px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;border-radius:4px;padding:1px 6px;color:var(--surface)}
+.sev.warn{background:var(--warn)}.sev.bad{background:var(--bad)}.sev.info{background:var(--faint)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.tile .v{font:600 30px/1.1 var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.tile .l{font-size:13px;color:var(--muted);margin-top:2px}
+.tile .s{font-size:12.5px;color:var(--faint);margin-top:6px}
+.meter{height:6px;border-radius:3px;background:var(--grid);overflow:hidden;margin-top:8px}.meter i{display:block;height:100%;background:var(--bar)}
+.charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:12px}
+.chart h3{font-size:14px;font-weight:600;margin:0}.chart .sub{font-size:12.5px;color:var(--muted);margin:2px 0 8px}
+svg.bars{width:100%;height:auto;display:block;overflow:visible}
+svg text{font:11px var(--mono);fill:var(--faint)}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--surface);font:12.5px/1.4 var(--sans);padding:6px 9px;border-radius:6px;z-index:20;max-width:240px}
+.tip b{font-family:var(--mono)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}
+.scroll{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;padding:6px 10px 6px 0;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:7px 10px 7px 0;border-bottom:1px solid var(--grid);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td.n,th.n{text-align:right}
+.st{font-size:11.5px;font-weight:600;border-radius:4px;padding:1px 7px;background:var(--chip);color:var(--muted);white-space:nowrap}
+.st.active{color:var(--good)}.st.trial{color:var(--warn)}.st.paused{color:var(--bad)}
+.dim{color:var(--faint)}
+.funnel{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.step .v{font:600 22px/1.1 var(--mono);font-variant-numeric:tabular-nums}.step .l{font-size:12.5px;color:var(--muted)}
+.replies{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.replies li{padding:8px 0;border-bottom:1px solid var(--grid);display:grid;grid-template-columns:auto 1fr;gap:4px 10px}
+.replies li:last-child{border-bottom:0}
+.kind{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;border-radius:4px;padding:1px 6px;background:var(--chip);color:var(--muted);align-self:start}
+.kind.question{color:var(--warn)}.kind.interested{color:var(--good)}.kind.unsubscribe,.kind.not_interested{color:var(--bad)}
+.who{font-family:var(--mono);font-size:13px;overflow-wrap:anywhere}.said{grid-column:2;font-size:13px;color:var(--muted)}
+.empty{color:var(--faint);font-size:13.5px;padding:6px 0}
+details summary{cursor:pointer;font-size:12.5px;color:var(--muted);margin-top:8px}
+button{font:inherit;font-size:13px;color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer}
+button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+.ok-line{display:flex;gap:8px;align-items:center;color:var(--good);font-weight:500}
+.queue{list-style:none;margin:0;padding:0}
+.queue li{display:grid;grid-template-columns:150px 110px 1fr;gap:4px 14px;padding:10px 0;border-bottom:1px solid var(--grid);align-items:baseline}
+.queue li:last-child{border-bottom:0}
+.queue .t{font-family:var(--mono);font-size:13px}
+.queue .cd{font-family:var(--mono);font-size:13px;font-weight:600;color:var(--accent)}
+.queue .cd.late{color:var(--bad)}
+.queue .w b{font-weight:600}.queue .w .dim{font-size:12.5px;display:block}
+.tag{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;border-radius:4px;padding:1px 6px;background:var(--chip);color:var(--muted);margin-right:6px}
+.tag.send{color:var(--accent)}.tag.scrape{color:var(--warn)}
+.health{font-size:11.5px;font-weight:600;border-radius:4px;padding:1px 7px;background:var(--chip);white-space:nowrap}
+.health.good{color:var(--good)}.health.warn,.health.wait{color:var(--warn)}.health.bad{color:var(--bad)}.health.off{color:var(--faint)}
+.attn .t2{font-weight:600}.attn .x{display:block;color:var(--muted);font-size:13.5px}
+.fresh{font-size:12.5px;color:var(--muted)}
+@media (max-width:620px){.queue li{grid-template-columns:1fr auto}.queue .w{grid-column:1/-1}}
+.rowbtn{cursor:pointer}.rowbtn:hover td{background:var(--chip)}
+.rowbtn td:first-child::before{content:"▸ ";color:var(--faint)}.rowbtn.open td:first-child::before{content:"▾ "}
+.panel{background:var(--ground);border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:8px 0 14px}
+.panel h3{font-size:15px;margin:0 0 8px}.panel h4{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:14px 0 6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{font-size:12.5px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:2px 9px}
+.chip b{font-family:var(--mono)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0}
+.filters input,.filters select{font:inherit;font-size:13px;padding:4px 8px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)}
+a{color:var(--accent)}
+.hcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.hcard .score{font:600 34px/1 var(--mono)}.hcard .grade{margin-left:8px}
+.grade{font-size:11.5px;font-weight:600;border-radius:4px;padding:1px 7px;background:var(--chip)}
+.grade.good{color:var(--good)}.grade.watch{color:var(--warn)}.grade.poor{color:var(--bad)}
+.kv{display:grid;grid-template-columns:1fr auto;gap:2px 10px;font-size:13px;margin-top:8px}.kv span:nth-child(even){font-family:var(--mono);text-align:right}
+.auth{display:flex;gap:6px;margin-top:8px}.auth span{font-size:11.5px;font-weight:600;border-radius:4px;padding:1px 6px;background:var(--chip)}
+.auth .y{color:var(--good)}.auth .n{color:var(--bad)}
+.hnotes{font-size:12.5px;color:var(--muted);margin:8px 0 0;padding-left:16px}
+</style>
+<div class="wrap">
+  <header class="top">
+    <h1>Firefly Outreach</h1>
+    <span id="state" class="pill off">Loading</span>
+    <span id="src" class="src"></span>
+  </header>
+
+  <section><h2>Needs your attention</h2><div class="card" id="attnCard"><ul class="attn" id="attn"></ul></div></section>
+
+  <section><h2>Right now</h2><div class="tiles" id="tiles"></div></section>
+
+  <section>
+    <h2>Coming up</h2>
+    <div class="card"><ul class="queue" id="queue"></ul>
+      <p class="dim" style="font-size:12.5px;margin:10px 0 0" id="queueNote"></p></div>
+  </section>
+
+  <section><h2>Automations</h2><div class="card scroll"><table id="autos"></table></div></section>
+
+  <section>
+    <h2>Daily log <span class="dim" style="text-transform:none;letter-spacing:0;font-weight:400">· click a day for its details</span></h2>
+    <div class="card scroll"><table id="dailyTable"></table></div>
+    <div id="dayBox"></div>
+    <div class="charts" id="charts" style="margin-top:12px"></div>
+  </section>
+
+  <section><h2>Batches sent</h2><div class="card scroll"><table id="batches"></table>
+    <p class="dim" style="font-size:12.5px;margin:10px 0 0">Reply % = real replies (auto-replies excluded) from that batch's recipients, counted since it was sent. Click a day in the daily log to see who was in each batch.</p></div></section>
+
+  <section><h2>Sending account health</h2><div class="hcards" id="health"></div>
+    <p class="dim" style="font-size:12.5px;margin:10px 0 0" id="healthNote"></p></section>
+
+  <section><h2>Sending accounts</h2><div class="card scroll"><table id="senders"></table></div></section>
+
+  <section>
+    <h2>Pipeline: new creators</h2>
+    <div class="card"><div class="funnel" id="funnel"></div>
+      <p class="dim" style="font-size:12.5px;margin:12px 0 0" id="never"></p></div>
+  </section>
+
+  <section>
+    <h2>Close-out: original campaign</h2>
+    <div class="card"><div class="funnel" id="closeout"></div>
+      <p class="dim" style="font-size:12.5px;margin:12px 0 0" id="closeoutNote"></p></div>
+  </section>
+
+  <section><h2>Discovery methods: efficiency and results</h2><div class="card scroll"><table id="methods"></table>
+    <p class="dim" style="font-size:12.5px;margin:10px 0 0">Every method, last 30 days. Status is set automatically from each method's cost per good creator over the last 3 days ("Last 3 days"): the cheapest get the budget, trials get a small test budget and their finds are held until they prove out, costly ones rest and are retested every 10 days. Emails per $1 and cost per email measure discovery; reply % and bounce % measure how that method's emails do once sent.</p></div></section>
+</div>
+<div class="tip" id="tip" hidden></div>
+<script>
+
+const FILE_NAME = "firefly-outreach-status.json";
+const $ = id => document.getElementById(id);
+const fmt = n => (n == null ? "—" : Number(n).toLocaleString());
+const usd = n => (n == null ? "—" : "$" + Number(n).toFixed(2));
+const when = ts => ts ? new Date(ts * 1000).toLocaleString([], {month: "short", day: "numeric", hour: "numeric", minute: "2-digit"}) : "—";
+const LABEL = {apify_tiktok_search: "TikTok search", apify_instagram_search: "Instagram search", apify_youtube_search: "YouTube search",
+  apify_google_dork: "Google search (Apify)", serper_google_dork: "Google search (Serper)", ddgs_search: "Free search (DuckDuckGo/Bing)", youtube_data_api: "YouTube Data API", instagram_contact_email: "Instagram business email",
+  serper_google_dork: "Serper Google search", scrapecreators_profiles: "ScrapeCreators lookups", modash_discovery: "Modash database",
+  apify_profile_verify: "Follower verification", classifier_claude: "Claude classifier",
+  youtube_featured: "YouTube featured channels", instagram_similar: "Instagram similar accounts (ScrapeCreators)",
+  influencers_club: "Influencers.club database", google_handles: "Google handles + email lookup",
+  socialfetch_instagram: "Social Fetch Instagram search", socialfetch_tiktok: "Social Fetch TikTok search",
+  hikerapi_instagram: "HikerAPI", ensembledata: "EnsembleData", infludata: "influData", ig_contacts: "Instagram contact emails (rowfinch)"};
+const PROB = {
+  "sending.enabled is false in config/settings.yaml": "Sending is switched off. Set sending.enabled: true in config/settings.yaml once everything below is done.",
+  "compliance.postal_address is empty (CAN-SPAM requires a physical address)": "Add a physical mailing address under compliance.postal_address. US law requires one in commercial email."
+};
+
+function el(tag, attrs = {}, text) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) e.setAttribute(k, v);
+  if (text != null) e.textContent = text;
+  return e;
+}
+
+let LAST = null, LAST_SRC = "";
+const ET = {timeZone: "America/New_York"};
+const clock = ts => ts ? new Date(ts * 1000).toLocaleString([], {...ET, weekday: "short", hour: "numeric", minute: "2-digit"}) + " ET" : "—";
+const clockDay = ts => ts ? new Date(ts * 1000).toLocaleString([], {...ET, month: "short", day: "numeric", hour: "numeric", minute: "2-digit"}) + " ET" : "—";
+const timeOnly = ts => ts ? new Date(ts * 1000).toLocaleTimeString([], {...ET, hour: "numeric", minute: "2-digit"}) : "—";
+function span(sec) {
+  sec = Math.abs(Math.round(sec)); const d = Math.floor(sec / 86400), h = Math.floor(sec % 86400 / 3600), m = Math.floor(sec % 3600 / 60), s = sec % 60;
+  const p2 = n => String(n).padStart(2, "0");
+  if (d) return `${d}d ${p2(h)}h ${p2(m)}m ${p2(s)}s`; if (h) return `${h}h ${p2(m)}m ${p2(s)}s`; if (m) return `${m}m ${p2(s)}s`; return `${s}s`;
+}
+function countdown(at) { const left = at - Date.now() / 1000; return left >= 0 ? {text: "in " + span(left), late: false} : {text: span(left) + " overdue", late: true}; }
+function ago(ts) { return ts ? span(Date.now() / 1000 - ts) + " ago" : "never"; }
+function tickTimers() {
+  document.querySelectorAll("[data-at]").forEach(e => { const c = countdown(+e.dataset.at); e.textContent = c.text; e.classList.toggle("late", c.late); });
+  document.querySelectorAll("[data-ago]").forEach(e => { e.textContent = ago(+e.dataset.ago); });
+}
+setInterval(tickTimers, 1000);
+
+function render(d, source) {
+  LAST = d; LAST_SRC = source;
+  const today = (d.daily || []).find(r => r.date === etDay(d.generated_at)) || {};
+  const attn = d.attention || [], autos = d.automations || [], up = d.upcoming || [];
+  const mf = d.min_followers || 10000, size = mf >= 1e6 ? `${mf / 1e6}M+` : `${mf / 1000}k+`;
+  const pill = $("state");
+  const bad = attn.filter(a => a.level === "bad").length;
+  if (bad) { pill.className = "pill bad"; pill.textContent = `${attn.length} need${attn.length === 1 ? "s" : ""} attention`; }
+  else if (attn.length) { pill.className = "pill warn"; pill.textContent = `Running · ${attn.length} to-do`; }
+  else { pill.className = "pill good"; pill.textContent = "All systems normal"; }
+  const src = $("src"); src.textContent = "";
+  src.append(el("span", {}, source + " · data written "), el("b", {"data-ago": d.generated_at}, ago(d.generated_at)),
+    el("span", {}, " · refreshes by itself; every job rewrites the data"));
+
+  // needs attention
+  const ul = $("attn"); ul.textContent = "";
+  if (!attn.length) ul.append(el("li", {class: "ok-line"}, "✓ Nothing needs your attention. Everything below runs on its own."));
+  attn.forEach(a => { const li = el("li"); li.append(el("span", {class: "sev " + (a.level === "bad" ? "bad" : "warn")}, a.level === "bad" ? "fix" : "to-do"));
+    const t = el("span"); t.append(el("span", {class: "t2"}, a.title), el("span", {class: "x"}, a.text)); li.append(t); ul.append(li); });
+
+  // tiles
+  const b = d.budget || {}, t = d.totals || {};
+  const nextSend = up[0];
+  const sentToday = (today.sent_initial || 0) + (today.sent_followup || 0) + (today.sent_final || 0);
+  const tiles = $("tiles"); tiles.textContent = "";
+  const tile = (v, l, sub, meter) => { const c = el("div", {class: "card tile"}); c.append(el("div", {class: "v"}, v), el("div", {class: "l"}, l));
+    if (meter != null) { const m = el("div", {class: "meter"}); const i = el("i"); i.style.width = Math.min(100, meter) + "%"; m.append(i); c.append(m); }
+    if (sub) c.append(sub); tiles.append(c); };
+  const sub = (...parts) => { const e = el("div", {class: "s"}); parts.forEach(p => e.append(typeof p === "string" ? document.createTextNode(p) : p)); return e; };
+  tile(fmt(t.queued || 0), "queued to send", nextSend ? sub("next send ", el("b", {"data-at": nextSend.at}, countdown(nextSend.at).text), ` · ${clock(nextSend.at)}`) : sub("nothing scheduled"));
+  tile(fmt(sentToday), "people emailed today", sub(today.send_time ? `sent at ${timeOnly(today.send_time)} · ` : "", `${fmt(today.sent_initial || 0)} first · ${fmt(today.sent_followup || 0)} follow-up · ${fmt(today.sent_final || 0)} final`));
+  tile(fmt(today.new_emails || 0), "new emails found today", sub(`${fmt(today.found || 0)} never-seen accounts checked`));
+  tile(usd(b.spent_today), `spent today (cap ${usd(b.daily_cap)})`, sub(`${usd(b.spent_30d)} over the last 30 days`), b.daily_cap ? 100 * (b.spent_today || 0) / b.daily_cap : 0);
+
+  // coming up: automation runs + projected sends, by time
+  const q = $("queue"); q.textContent = "";
+  const items = [];
+  autos.filter(a => a.key !== "send").forEach(a => items.push({at: a.next_run, kind: a.key === "scrape" ? "scrape" : "check", title: a.label, detail: a.key === "scrape" ? `adds new ${size} fitness creators to the queue` : "reads replies and bounces in all 4 inboxes"}));
+  up.forEach((u, i) => {
+    const parts = [];
+    if (u.new) parts.push(`${fmt(u.new)} first emails (new people)`);
+    if (u.followups) parts.push(`${fmt(u.followups)} follow-ups (2nd email)`);
+    if (u.finals) parts.push(`${fmt(u.finals)} final notes (3rd email)`);
+    if (u.retries) parts.push(`${fmt(u.retries)} retries from another account`);
+    const co = (u.closeout_followups || 0) + (u.closeout_finals || 0);
+    if (co) parts.push(`close-out: ${fmt(u.closeout_followups || 0)} follow-up #1 · ${fmt(u.closeout_finals || 0)} final`);
+    items.push({at: u.at, kind: "send", title: u.people ? `Send: ${fmt(u.people)} people already scheduled` : "Send: first emails to newly found creators", detail: (parts.length ? parts.join(" · ") + ` · about ${fmt(u.emails)} BCC emails · ` : "") + "plus new creators found by that morning's 4:45 AM search"});
+  });
+  items.sort((a, b) => a.at - b.at).slice(0, 9).forEach(it => {
+    const li = el("li"); const c = countdown(it.at);
+    li.append(el("span", {class: "t"}, clock(it.at)), el("span", {class: "cd" + (c.late ? " late" : ""), "data-at": it.at}, c.text));
+    const w = el("span", {class: "w"}); const tag = el("span", {class: "tag " + it.kind}, it.kind === "check" ? "inbox" : it.kind);
+    const ti = el("b", {}, it.title); w.append(tag, ti, el("span", {class: "dim"}, it.detail)); li.append(w); q.append(li); });
+  $("queueNote").textContent = `Follow-ups go ${d.followup_after_days || 2} days after the first email and final notes ${d.final_after_days || 3} days after that, only to people who haven't replied. Send counts are projected from what's in the system now; creators found by upcoming searches are added on top.`;
+
+  // automations
+  const at = $("autos"); at.textContent = "";
+  const ah = el("tr"); ["Automation", "Status", "Last run", "Next run", "How it starts"].forEach(h => ah.append(el("th", {}, h))); at.append(ah);
+  const HL = {good: "running fine", warn: "check", wait: "waiting", bad: "problem", off: "off"};
+  autos.forEach(a => { const tr = el("tr");
+    const c1 = el("td"); c1.append(el("div", {}, a.label), el("div", {class: "dim", style: "font-size:12.5px"}, a.what)); tr.append(c1);
+    const c2 = el("td"); c2.append(el("span", {class: "health " + a.health}, HL[a.health] || a.health)); if (a.health !== "good") c2.append(el("div", {class: "dim", style: "font-size:12.5px;margin-top:4px"}, a.note)); tr.append(c2);
+    const c3 = el("td", {class: "num"}); if (a.last_run) { c3.append(el("div", {}, clockDay(a.last_run)), el("div", {class: "dim", style: "font-size:12.5px"}, (a.last_result ? "succeeded" : "failed") + " · ")); c3.lastChild.append(el("span", {"data-ago": a.last_run}, ago(a.last_run))); } else c3.textContent = "not yet"; tr.append(c3);
+    const c4 = el("td", {class: "num"}); const cd = countdown(a.next_run); c4.append(el("div", {}, clock(a.next_run)), el("div", {class: "dim", style: "font-size:12.5px", "data-at": a.next_run}, cd.text)); tr.append(c4);
+    tr.append(el("td", {class: "dim", style: "font-size:12.5px"}, a.trigger)); at.append(tr); });
+
+  // daily log (click a row for that day's details)
+  const tb = $("dailyTable"); tb.textContent = "";
+  const hr = el("tr"); ["Date", "Spent", "New emails found", "Send time", "First emails", "Follow-ups", "Finals", "Close-out sent", "Replies"].forEach((h, i) => hr.append(el("th", i && i !== 3 ? {class: "n"} : {}, h))); tb.append(hr);
+  [...(d.daily || [])].reverse().slice(0, 30).forEach(r => { const tr = el("tr", {class: "rowbtn" + (OPEN_DAY === r.date ? " open" : ""), tabindex: 0});
+    [r.date, usd(r.cost), fmt(r.new_emails), r.send_time ? timeOnly(r.send_time) : "—", fmt(r.sent_initial), fmt(r.sent_followup), fmt(r.sent_final), r.sent_closeout ? fmt(r.sent_closeout) : "—", fmt(r.replies)]
+      .forEach((v, i) => tr.append(el("td", {class: (i && i !== 3 ? "n " : "") + "num"}, v)));
+    const open = () => toggleDay(r.date, tr); tr.addEventListener("click", open); tr.addEventListener("keydown", e => { if (e.key === "Enter") open(); });
+    tb.append(tr); });
+  const dbx = $("dayBox"); dbx.textContent = ""; if (OPEN_DAY) dbx.append(DAY_PANEL);
+  const days = fill30(d.daily || [], d.generated_at);
+  const charts = $("charts"); charts.textContent = "";
+  charts.append(barChart("Spent per day", "Apify and other paid lookups", days, r => r.cost || 0, r => `${usd(r.cost)} spent · ${fmt(r.new_emails)} new emails`, true));
+  charts.append(barChart("New emails found", `net-new ${size} creators, per day`, days, r => (r.new_emails || 0) + (r.held || 0), r => `${fmt(r.new_emails)} queued · ${usd(r.cost)} spent`));
+  charts.append(barChart("People emailed", "all three emails, per day", days, r => (r.sent_initial || 0) + (r.sent_followup || 0) + (r.sent_final || 0), r => `${fmt(r.sent_initial)} first · ${fmt(r.sent_followup)} follow-up · ${fmt(r.sent_final)} final`));
+
+  // senders
+  const sd = $("senders"); sd.textContent = "";
+  const sh = el("tr"); ["Account", "Today: first / follow-up / final", "All time: first emails", "Follow-ups", "Finals", "Last sent"].forEach((h, i) => sh.append(el("th", i ? {class: "n"} : {}, h))); sd.append(sh);
+  (d.senders || []).forEach(s => { const tr = el("tr"); const a = el("td"); a.append(el("div", {class: "num"}, s.email), el("div", {class: "dim", style: "font-size:12.5px"}, s.name || "")); tr.append(a);
+    [`${fmt(s.first_today)} / ${fmt(s.followup_today)} / ${fmt(s.final_today)}`, fmt(s.first_total), fmt(s.followup_total), fmt(s.final_total), s.last_sent ? clockDay(s.last_sent) : "not yet"]
+      .forEach(v => tr.append(el("td", {class: "n num"}, v))); sd.append(tr); });
+
+  // pipeline by stage
+  const pl = d.pipeline || {};
+  const fu = $("funnel"); fu.textContent = "";
+  [[pl.queued_first, "queued for first email"], [pl.waiting_followup1, "waiting for follow-up #1"], [pl.waiting_followup2, "waiting for follow-up #2 (final)"],
+   [pl.waiting_retry, "waiting for a retry (was blocked)"], [pl.completed, "finished all 3, no reply"], [pl.replied, "replied"], [pl.bounced, "bounced (address dead)"], [pl.filtered, "removed (not fitness / not English / outside the US)"]]
+    .forEach(([v, l]) => { const s = el("div", {class: "step"}); s.append(el("div", {class: "v"}, fmt(v || 0)), el("div", {class: "l"}, l)); fu.append(s); });
+  const co = pl.closeout || {}; const cob = $("closeout"); cob.textContent = "";
+  [[co.waiting_followup1, "waiting for follow-up #1"], [co.waiting_final, "waiting for the final"], [co.completed, "finished all 3, no reply"],
+   [co.replied, "replied"], [co.bounced, "bounced"], [co.removed, "removed (language/location)"]]
+    .forEach(([v, l]) => { const s = el("div", {class: "step"}); s.append(el("div", {class: "v"}, fmt(v || 0)), el("div", {class: "l"}, l)); cob.append(s); });
+  $("closeoutNote").textContent = `${fmt(co.total || 0)} people from the original Oct 12–17 hand-sent campaign (10k+ followers, no reply yet) are finishing the same 3-email sequence in their original email threads, from the same account. Their sends are counted in the "Close-out sent" column, not in the daily first/follow-up/final numbers.`;
+  $("never").textContent = `Never emailed again: ${fmt(d.do_not_email)} who replied, unsubscribed, bounced, were suppressed or removed by the language/location rules (${fmt(d.questions_list || 0)} of them asked questions and are on the questions list), plus ${fmt(t.historical)} addresses from your earlier lists. ${fmt(t.accounts_seen)} accounts known in total, so none are scraped or emailed twice.`;
+
+  // methods: efficiency + outreach results
+  const mt = $("methods"); mt.textContent = "";
+  const mh = el("tr"); ["Method", "Status", "Spent", "Profiles checked", "New emails", "Held", "Emails per $1", "Cost per email", "Last 3 days", "Hit rate", "Emailed", "Reply %", "Bounce %"].forEach((h, i) => mh.append(el("th", i > 1 ? {class: "n"} : {}, h))); mt.append(mh);
+  const pct = v => v == null ? "—" : v.toFixed(v < 10 ? 1 : 0) + "%";
+  const STATUS = {active: "Active", trial: "Trial", resting: "Resting", paused: "Paused", waiting: "Needs key", disabled: "Off", "one-off": "One-off"};
+  (d.method_efficiency || []).forEach(m => { const tr = el("tr"); tr.append(el("td", {}, LABEL[m.name] || m.name));
+    const stt = el("td", {class: "dim", title: m.status_reason || ""}, STATUS[m.status] || m.status || "—"); tr.append(stt);
+    [usd(m.cost), fmt(m.checked), fmt(m.new_emails), fmt(m.held || 0), m.emails_per_dollar == null ? "—" : fmt(m.emails_per_dollar), m.cost_per_email == null ? "—" : "$" + m.cost_per_email.toFixed(3),
+     m.cost_per_good_3d == null ? "—" : "$" + m.cost_per_good_3d.toFixed(3),
+     pct(m.hit_rate_pct), fmt(m.emailed), pct(m.reply_pct), pct(m.bounce_pct)].forEach(v => tr.append(el("td", {class: "n num"}, v))); mt.append(tr); });
+
+  // batches
+  const bt = $("batches"); bt.textContent = "";
+  const STAGE = {1: "First email", 2: "Follow-up #1", 3: "Follow-up #2 (final)"};
+  const bh = el("tr"); ["Sent", "Account", "Email", "Recipients", "Replies", "Reply %", "Bounce %"].forEach((h, i) => bh.append(el("th", i > 2 ? {class: "n"} : {}, h))); bt.append(bh);
+  if (!(d.batches || []).length) { const tr = el("tr"); tr.append(el("td", {colspan: 7, class: "dim"}, "No batches sent yet.")); bt.append(tr); }
+  (d.batches || []).slice(0, 40).forEach(b => { const tr = el("tr");
+    [clockDay(b.at), b.sender.split("@")[0], (STAGE[b.stage] || b.stage) + (b.cohort === "closeout" ? " · close-out" : "")].forEach(v => tr.append(el("td", {class: "num"}, v)));
+    [fmt(b.recipients), fmt(b.replies), pct(b.reply_pct), pct(b.bounce_pct)].forEach(v => tr.append(el("td", {class: "n num"}, v))); bt.append(tr); });
+
+  // sender health
+  const hc = $("health"); hc.textContent = "";
+  (d.sender_health || []).forEach(h => { const c = el("div", {class: "card hcard"});
+    const top = el("div"); top.append(el("span", {class: "score"}, String(h.score)), el("span", {class: "grade " + h.grade}, h.grade)); c.append(el("div", {class: "num", style: "font-size:13px"}, h.email), top);
+    const kv = el("div", {class: "kv"});
+    [["Sent (" + h.window_days + " days)", fmt(h.sent)], ["Dead addresses", h.hard_pct == null ? "—" : `${fmt(h.hard_bounces)} · ${pct(h.hard_pct)}`],
+     ["Blocked by receiver", h.blocked_pct == null ? "—" : `${fmt(h.blocked)} · ${pct(h.blocked_pct)}`], ["Replies", h.reply_pct == null ? "—" : `${fmt(h.replies)} · ${pct(h.reply_pct)}`],
+     ["Busiest day", fmt(h.peak_day) + " / ~2,000"]].forEach(([k, v]) => kv.append(el("span", {}, k), el("span", {}, v)));
+    c.append(kv);
+    const au = el("div", {class: "auth"}); [["SPF", h.auth.spf], ["DKIM", h.auth.dkim], ["DMARC", h.auth.dmarc]].forEach(([k, ok]) => au.append(el("span", {class: ok ? "y" : "n"}, (ok ? "✓ " : "✗ ") + k))); c.append(au);
+    if ((h.notes || []).length) { const ul = el("ul", {class: "hnotes"}); h.notes.forEach(n => ul.append(el("li", {}, n))); c.append(ul); }
+    hc.append(c); });
+  $("healthNote").textContent = "Score out of 100 from what this system can measure: domain authentication (SPF, DKIM, DMARC), dead addresses (keep under 2%), messages blocked by the receiving server (keep under 1%, the main sign of a reputation problem), and volume against Google's daily limit. Google doesn't share spam-folder placement, so a high score means no warning signs, not guaranteed inbox delivery.";
+  tickTimers();
+}
+
+let OPEN_DAY = null; const DAY_PANEL = el("div", {class: "panel"}); const DAY_CACHE = {};
+async function toggleDay(date) {
+  OPEN_DAY = OPEN_DAY === date ? null : date;
+  if (OPEN_DAY) { DAY_PANEL.textContent = "Loading " + date + "…"; }
+  render(LAST, LAST_SRC);
+  if (OPEN_DAY) DAY_PANEL.scrollIntoView({block: "nearest"});
+  if (!OPEN_DAY) return;
+  if (typeof loadDay !== "function") { DAY_PANEL.textContent = "Day details are on the GitHub dashboard page."; return; }
+  try { const dd = DAY_CACHE[date] || (DAY_CACHE[date] = await loadDay(date)); if (OPEN_DAY === date) renderDay(dd); }
+  catch (e) { DAY_PANEL.textContent = "Couldn't load " + date + " (" + (e.message || e) + ")."; }
+}
+function renderDay(dd) {
+  const P = DAY_PANEL; P.textContent = "";
+  const STAGE = {1: "First email", 2: "Follow-up #1", 3: "Follow-up #2 (final)"};
+  const pct = v => v == null ? "—" : v.toFixed(v < 10 ? 1 : 0) + "%";
+  P.append(el("h3", {}, dd.date));
+  const spent = (dd.spend || []).reduce((a, r) => a + (r.usd || 0), 0);
+  P.append(el("h4", {}, `Spent ${usd(spent)}`));
+  const sc = el("div", {class: "chips"}); (dd.spend || []).forEach(r => { const c = el("span", {class: "chip"}); c.append(document.createTextNode((LABEL[r.source] || r.source) + " "), el("b", {}, usd(r.usd))); sc.append(c); }); if (!(dd.spend || []).length) sc.append(el("span", {class: "dim"}, "nothing")); P.append(sc);
+  const nm = dd.new_by_method || {};
+  P.append(el("h4", {}, `New profiles found: ${fmt((dd.profiles || []).length)}`));
+  const nc = el("div", {class: "chips"}); Object.entries(nm).sort((a, b) => b[1] - a[1]).forEach(([k, v]) => { const c = el("span", {class: "chip"}); c.append(document.createTextNode((LABEL[k] || k) + " "), el("b", {}, fmt(v))); nc.append(c); }); P.append(nc);
+  // batches with recipients
+  P.append(el("h4", {}, `Batches sent: ${fmt((dd.sends || []).length)}`));
+  if (!(dd.sends || []).length) P.append(el("div", {class: "dim"}, "No emails sent this day."));
+  (dd.sends || []).forEach(b => {
+    const det = el("details"); const sm = el("summary");
+    sm.textContent = `${timeOnly(b.at)} · ${b.sender} · ${STAGE[b.stage] || b.stage}${b.cohort === "closeout" ? " (close-out)" : ""} · ${fmt(b.recipients)} people · ${fmt(b.replies)} replies (${pct(b.reply_pct)}) · bounces ${pct(b.bounce_pct)}`;
+    det.append(sm);
+    det.addEventListener("toggle", () => { if (det.open && det.children.length === 1) det.append(peopleTable(b.recipients_list || [], true)); }, {once: false});
+    P.append(det); });
+  // profiles found
+  P.append(el("h4", {}, "Profiles found this day"));
+  P.append(peopleTable(dd.profiles || [], false));
+}
+const STATUS_LABEL = {filtered: "removed (fitness/language/location)", queued: "queued", active: "in sequence", completed: "finished", replied: "replied", unsubscribed: "unsubscribed", invalid: "bounced", failed: "failed", held: "held"};
+function peopleTable(rows, isBatch) {
+  const wrap = el("div");
+  const f = el("div", {class: "filters"});
+  const q = el("input", {type: "search", placeholder: "Search handle or email", "aria-label": "Search"});
+  const plat = el("select", {"aria-label": "Platform"}); plat.append(el("option", {value: ""}, "All platforms")); [...new Set(rows.map(r => r.p).filter(Boolean))].sort().forEach(p => plat.append(el("option", {value: p}, p)));
+  const meth = el("select", {"aria-label": "Method"}); meth.append(el("option", {value: ""}, "All methods")); [...new Set(rows.map(r => r.s).filter(Boolean))].sort().forEach(m => meth.append(el("option", {value: m}, LABEL[m] || m)));
+  f.append(q, plat); if (!isBatch) f.append(meth);
+  const count = el("span", {class: "dim", style: "font-size:12.5px;align-self:center"}); f.append(count);
+  const box = el("div", {class: "scroll"}); const more = el("button", {type: "button", style: "margin-top:8px"}, "Show more");
+  let limit = 100;
+  const draw = () => {
+    const t = q.value.trim().toLowerCase();
+    const list = rows.filter(r => (!t || (r.h || "").toLowerCase().includes(t) || (r.e || "").toLowerCase().includes(t)) && (!plat.value || r.p === plat.value) && (!meth.value || r.s === meth.value));
+    count.textContent = `${fmt(list.length)} of ${fmt(rows.length)}`;
+    const tb = el("table"); const h = el("tr");
+    const cols = isBatch ? ["Profile", "Platform", "Followers", "Email", "Status", "Latest"] : ["Profile", "Platform", "Followers", "Email", "Method", "Status"];
+    cols.forEach((c, i) => h.append(el("th", i === 2 ? {class: "n"} : {}, c))); tb.append(h);
+    list.slice(0, limit).forEach(r => { const tr = el("tr"); const a = el("td");
+      if (r.u) { const l = el("a", {href: r.u, target: "_blank", rel: "noopener noreferrer"}, "@" + (r.h || "?")); a.append(l); } else a.textContent = r.h ? "@" + r.h : "—";
+      tr.append(a, el("td", {}, r.p || "—"), el("td", {class: "n num"}, r.f == null ? "—" : fmt(r.f)), el("td", {class: "num", style: "font-size:12.5px"}, r.e));
+      if (isBatch) tr.append(el("td", {}, STATUS_LABEL[r.st] || r.st || "—"), el("td", {class: "dim"}, r.ev ? r.ev.replace("reply:", "reply: ").replace("bounce_soft", "blocked").replace("bounce_hard", "dead address").replace("auto_reply", "auto-reply") : "—"));
+      else tr.append(el("td", {class: "dim"}, LABEL[r.s] || r.s || "—"), el("td", {}, (STATUS_LABEL[r.st] || r.st || "—") + (r.sg ? ` · ${r.sg} sent` : "")));
+      tb.append(tr); });
+    box.textContent = ""; box.append(tb); more.hidden = list.length <= limit;
+  };
+  q.addEventListener("input", () => { limit = 100; draw(); }); plat.addEventListener("change", draw); meth.addEventListener("change", draw);
+  more.addEventListener("click", () => { limit += 200; draw(); });
+  draw(); wrap.append(f, box, more); return wrap;
+}
+
+function etDay(ts) { return new Date((ts || Date.now() / 1000) * 1000).toLocaleDateString("en-CA", ET); }
+function localDay(ts) { const x = new Date((ts || Date.now() / 1000) * 1000); return x.getFullYear() + "-" + String(x.getMonth() + 1).padStart(2, "0") + "-" + String(x.getDate()).padStart(2, "0"); }
+function fill30(rows, ts) {
+  const by = Object.fromEntries(rows.map(r => [r.date, r])); const out = [];
+  const end = (ts || Date.now() / 1000);
+  for (let i = 29; i >= 0; i--) { const k = etDay(end - i * 86400); out.push(by[k] || {date: k}); }
+  return out;
+}
+function nice(max) { if (max <= 4) return 4; const p = Math.pow(10, Math.floor(Math.log10(max))); for (const m of [1, 2, 2.5, 5, 10]) if (m * p >= max) return m * p; return 10 * p; }
+
+function barChart(title, sub, days, val, tip, money) {
+  const card = el("div", {class: "card chart"}); card.append(el("h3", {}, title), el("div", {class: "sub"}, sub));
+  const W = 320, H = 150, L = 34, R = 6, T = 8, B = 22, ns = "http://www.w3.org/2000/svg";
+  const vals = days.map(val), top = nice(Math.max(...vals, 0));
+  const svg = document.createElementNS(ns, "svg"); svg.setAttribute("viewBox", `0 0 ${W} ${H}`); svg.setAttribute("class", "bars"); svg.setAttribute("role", "img"); svg.setAttribute("aria-label", `${title}, last 30 days`);
+  const y = v => T + (H - T - B) * (1 - v / top), slot = (W - L - R) / days.length, bw = Math.min(24, slot - 2);
+  const mk = (tag, a) => { const e = document.createElementNS(ns, tag); for (const [k, v] of Object.entries(a)) e.setAttribute(k, v); svg.append(e); return e; };
+  for (const g of [0, top / 2, top]) { mk("line", {x1: L, x2: W - R, y1: y(g), y2: y(g), stroke: "var(--grid)", "stroke-width": 1});
+    const t = mk("text", {x: L - 6, y: y(g) + 3.5, "text-anchor": "end"}); t.textContent = money ? "$" + g : (g >= 1000 ? (g / 1000) + "k" : String(g)); }
+  days.forEach((r, i) => {
+    const v = vals[i], x = L + i * slot + (slot - bw) / 2, h = Math.max(0, y(0) - y(v));
+    if (v > 0) { const rr = Math.min(4, h, bw / 2);
+      mk("path", {d: `M${x},${y(0)} V${y(v) + rr} Q${x},${y(v)} ${x + rr},${y(v)} H${x + bw - rr} Q${x + bw},${y(v)} ${x + bw},${y(v) + rr} V${y(0)} Z`, fill: "var(--bar)"}); }
+    const hit = mk("rect", {x: L + i * slot, y: T, width: slot, height: H - T - B, fill: "transparent", tabindex: -1});
+    hit.addEventListener("mousemove", e => showTip(e, `<b>${r.date}</b> · <b>${money ? usd(v) : fmt(v)}</b><br>${tip(r)}`));
+    hit.addEventListener("mouseleave", hideTip);
+    if (i === 0 || i === days.length - 1 || (i % 7 === 0 && i < days.length - 4)) { const t = mk("text", {x: L + i * slot + slot / 2, y: H - 6, "text-anchor": i === 0 ? "start" : i === days.length - 1 ? "end" : "middle"}); t.textContent = r.date.slice(5).replace("-", "/"); }
+  });
+  mk("line", {x1: L, x2: W - R, y1: y(0), y2: y(0), stroke: "var(--line)", "stroke-width": 1});
+  card.append(svg); return card;
+}
+function showTip(e, html) { const t = $("tip"); t.innerHTML = html; t.hidden = false; const w = t.offsetWidth; t.style.left = Math.min(window.innerWidth - w - 8, e.clientX + 12) + "px"; t.style.top = (e.clientY + 14) + "px"; }
+function hideTip() { $("tip").hidden = true; }
+
+// ---- password-protected live data: status.enc.json is AES-256-GCM encrypted with a key derived
+// (PBKDF2-SHA256) from the dashboard password. Nothing readable is published; decryption happens here.
+const FILE = "status.enc.json", REFRESH_MS = 60 * 1000, PW_KEY = "ff-dash-pw";
+const wrapEl = document.querySelector(".wrap");
+const show = (e, on) => { e.style.display = on ? "" : "none"; };
+show(wrapEl, false);
+const gate = el("form", {class: "card", style: "max-width:380px;margin:12vh auto;display:flex;flex-direction:column;gap:10px"});
+gate.append(el("h1", {}, "Firefly Outreach"), el("label", {for: "pw", class: "dim"}, "Password"));
+const pwIn = el("input", {id: "pw", type: "password", autocomplete: "current-password", style: "font:inherit;padding:8px 10px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink)"});
+const rem = el("input", {id: "rem", type: "checkbox", checked: ""});
+const remL = el("label", {for: "rem", class: "dim", style: "font-size:13px;display:flex;gap:6px;align-items:center"}); remL.append(rem, document.createTextNode("Remember on this device"));
+const msg = el("div", {class: "dim", style: "font-size:13px;min-height:1.2em"});
+gate.append(pwIn, remL, el("button", {type: "submit"}, "Open dashboard"), msg);
+document.body.prepend(gate);
+
+const b64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
+let cached = null;   // {salt, key}
+async function keyFor(pw, salt, iter) {
+  if (cached && cached.salt === salt && cached.pw === pw) return cached.key;
+  const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(pw), "PBKDF2", false, ["deriveKey"]);
+  const key = await crypto.subtle.deriveKey({name: "PBKDF2", salt: b64(salt), iterations: iter, hash: "SHA-256"}, base,
+    {name: "AES-GCM", length: 256}, false, ["decrypt"]);
+  cached = {salt, pw, key}; return key;
+}
+async function fetchStatus(pw, file) {
+  const r = await fetch((file || FILE) + "?t=" + Date.now(), {cache: "no-store"});
+  if (!r.ok) throw new Error("fetch " + r.status);
+  const e = await r.json();
+  const key = await keyFor(pw, e.salt, e.iter);
+  let pt;
+  try { pt = await crypto.subtle.decrypt({name: "AES-GCM", iv: b64(e.iv)}, key, b64(e.ct)); }
+  catch (x) { const err = new Error("wrong password"); err.wrong = true; throw err; }
+  return JSON.parse(new TextDecoder().decode(pt));
+}
+let PW = null, timer = null;
+async function refresh() {
+  try { render(await fetchStatus(PW), "Live"); }
+  catch (e) { if (e.wrong) { lock("That password didn't work."); return; } $("src").textContent = "Couldn't refresh just now; showing the last data. Retrying in a minute."; }
+}
+function lock(text) {
+  clearInterval(timer); PW = null; show(wrapEl, false); show(gate, true); msg.textContent = text || "";
+  try { localStorage.removeItem(PW_KEY); } catch (e) {}
+}
+async function unlock(pw, remember) {
+  msg.textContent = "Unlocking…";
+  try {
+    const data = await fetchStatus(pw);
+    PW = pw; show(gate, false); show(wrapEl, true); render(data, "Live");
+    if (remember) { try { localStorage.setItem(PW_KEY, pw); } catch (e) {} }
+    clearInterval(timer); timer = setInterval(refresh, REFRESH_MS);
+  } catch (e) { msg.textContent = e.wrong ? "That password didn't work." : "Couldn't load the status file. Try again in a minute."; }
+}
+gate.addEventListener("submit", ev => { ev.preventDefault(); unlock(pwIn.value, rem.checked); });
+let saved = null; try { saved = localStorage.getItem(PW_KEY); } catch (e) {}
+if (saved) unlock(saved, true); else pwIn.focus();
+
+// day drill-down files (used by toggleDay in the page)
+async function loadDay(date) {
+  if (!PW) throw new Error("locked");
+  return fetchStatus(PW, "days/" + date + ".enc.json");
+}
+
+</script>
+</body></html>
